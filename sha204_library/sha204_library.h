@@ -5,11 +5,6 @@
 
 /* bitbang_config.h */
 
-#define PORT_DDR (DDRB)  // B1 (D9)
-#define PORT_OUT (PORTB)
-#define PORT_IN (PINB)
-//uint8_t device_pin = 2;
-
 #define PORT_ACCESS_TIME  		(630)	//! time it takes to toggle the pin at CPU clock of 16 MHz (ns)
 #define START_PULSE_WIDTH  		(4340)	//! width of start pulse (ns)
 #define BIT_DELAY	      		(4)		//! delay macro for width of one pulse (start pulse or zero pulse, in ns)
@@ -289,6 +284,7 @@ class atsha204Class
 {
 private:
 	uint8_t device_pin;
+	volatile uint8_t *device_port_DDR, *device_port_OUT, *device_port_IN;
 	void sha204c_calculate_crc(uint8_t length, uint8_t *data, uint8_t *crc);
 	uint8_t sha204c_check_crc(uint8_t *response);
 	void swi_set_signal_pin(uint8_t is_high);
@@ -303,7 +299,7 @@ private:
 	
 
 public:
-	atsha204Class();	// Constructor
+	atsha204Class(uint8_t pin);	// Constructor
 	uint8_t sha204c_wakeup(uint8_t *response);
 	uint8_t sha204c_send_and_receive(uint8_t *tx_buffer, uint8_t rx_size, uint8_t *rx_buffer, uint8_t execution_delay, uint8_t execution_timeout);
 	uint8_t sha204c_resync(uint8_t size, uint8_t *response);	

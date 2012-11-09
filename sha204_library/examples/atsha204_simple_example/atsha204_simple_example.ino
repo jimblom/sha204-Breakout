@@ -7,12 +7,17 @@
    connected and operational. And how to obtain an SHA204's unique serial
    number, and send it a MAC challenge.
    
-   As of the most recent version of th SHA204 library, the ATSHA204's SDA pin must
-   be connected to D9. It can be powered between 3.3V and 5V.
+   The ATSHA204's SDA pin can be connected to any of the Arduino's digital pins.
+   When constructing your atsha204Class, pass the constructor the pin you want to use.
+   In this example we'll attach SDA to pin 7.
+   
+   The ATSHA204 can be powered between 3.3V and 5V.
 */
 #include <sha204_library.h>
 
-atsha204Class sha204;
+const int sha204Pin = 7;
+
+atsha204Class sha204(sha204Pin);
 
 void setup()
 {
