@@ -99,6 +99,7 @@ uint8_t atsha204Class::swi_send_bytes(uint8_t count, uint8_t *buffer)
         *device_port_OUT |= device_pin;
         delayMicroseconds(5*BIT_DELAY);  //BIT_DELAY_5;
       }
+      delayMicroseconds(2); // since 8*BIT_DELAY < 37 us (datasheet / Table 7-3)
     }
   }
   interrupts();  //swi_enable_interrupts();
